@@ -62,6 +62,29 @@ class Graph{
                 this->adjMatrix[v][u] = weight;
             }
         }
+        //a method that checks if two vertices are adjacent or not.
+        bool areAdjacent(int u, int v){
+            const bool paramsAreValid = checkVerticesIndexes(u,v);
+            if(!paramsAreValid){
+                throw std::invalid_argument("Indexes must be greater than zero and smaller than the amount of vertices.");
+            }
+            return this->adjMatrix[u][v] == 1;
+        }
+        //a method that returns the indexes of all nodes that are adjacecnt to a specific vertex.
+        std::vector<int> getAdjacentNodes(int u){
+            if(u < 0 || u >= this->V){
+                throw std::invalid_argument("Index of vertex is out of range. Must be greater then zero and smaller than the amount of vertices");
+            }
+            std::vector<int> adjNodes;
+            for(int i = 0; i < this->V; i++){
+                if(this->adjMatrix[u][i] == 1){
+                    adjNodes.push_back(i);
+                }
+            }
+            return adjNodes;
+        }
+
+
         //removes an edge to the graph by receiving its two endpoints
         //if there isn't any edge connecting these two vertices, nothing happens 
         void removeEdge(int u, int v){
@@ -97,4 +120,8 @@ int main() {
     teste.addEdge(0,1);
     teste.addEdge(0,2);
     teste.printMatrix();
+    auto x = teste.getAdjacentNodes(0);
+    for(int i = 0; i < x.size(); i++){
+        std::cout << x[i] << " ";
+    }
 }
