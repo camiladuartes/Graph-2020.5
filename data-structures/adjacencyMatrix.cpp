@@ -15,7 +15,7 @@ class Graph{
         bool parametersGreaterThanV = u >= this->V || v >= this->V;
         bool parametersSmallerThanZero = u < 0 || v < 0;
 
-        return !parametersSmallerThanZero && !parametersSmallerThanZero;
+        return !parametersSmallerThanZero && !parametersGreaterThanV;
     }
 
     public: 
