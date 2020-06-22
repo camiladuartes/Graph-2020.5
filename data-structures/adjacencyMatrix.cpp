@@ -54,6 +54,9 @@ class Graph{
             if(!paramsAreValid){
                 throw std::invalid_argument("Indexes must be greater than zero and smaller than the amount of vertices.");
             }
+            if(!this->isWeighted){
+                throw "Cannot inform weight of an edge on an unweighted graph!";
+            }
             this->adjMatrix[u][v] = weight;
             if(!this->isDirected){
                 this->adjMatrix[v][u] = weight;

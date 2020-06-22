@@ -4,6 +4,8 @@
 
 class Graph{
 	private:
+	// a struct created to be able to insert a possible weight of an edge
+	//if we have 0 -> {1, 3}, then the edge that connects 0 to 1 has a weight of 3
 		struct link{
 			int vertex;
 			int Weight;
@@ -11,9 +13,12 @@ class Graph{
 			link(int v, int w = 1)
 			:vertex{v}, Weight{w}
 			{/*empty*/}
-
 		};
+		//a boolean to see if our graph is directed or not.
+		bool isDirected;
+		//our amount of vertices.
 		int V;
+		//this is our adjList. Each element of the list is another list.
 		std::list<link> *adjList;
 
 		//function to check if the provided indexes of vertices are valid ones.
@@ -26,10 +31,11 @@ class Graph{
     	}
 
 	public:
-		Graph(int vertices)
+		Graph(int vertices, bool isDirected = false)
 		{
 			V = vertices;
 			adjList = new std::list<link>[V];
+			this->isDirected = isDirected;
 		}
 
 		void addEdge(int v1, int v2, int weight = 1)
@@ -39,9 +45,13 @@ class Graph{
            	if(!paramsAreValid){
             	throw std::invalid_argument("Indexes must be greater than zero and smaller than the amount of vertices.");
             }
-
             link adj = link(v2, weight);
             adjList[v1].push_back(adj);
+			//we can only add the same edge "both ways" if our graph isn't directed.
+			if(!this->isDirected){
+				link adj2 = link(v1, weight);
+				adjList[v2].push_back(adj2);
+			}
 		}
 
 		void removeEdge(int v1, int v2)
@@ -63,11 +73,14 @@ class Graph{
 		{
 			for(int i = 0; i < V; i++){ 
 				auto it = adjList[i].cbegin();
-				std::cout << i << ": [ " << it->vertex;
-				while( it != adjList[i].cend() )
-				{
-					it++;
-					std::cout<< ", "<< it->vertex;
+				std::cout << i << ": [";
+				if(adjList[i].size() > 0){
+					std::cout << it->vertex;
+					while( it != --adjList[i].cend())
+					{
+						it++;
+						std::cout<< ", "<< it->vertex;
+					}
 				}
 				std::cout << "]" << std::endl ;
 			}
@@ -76,8 +89,8 @@ class Graph{
 };
 
 int main() {
-    Graph teste(3);
-    teste.addEdge(0,1);
-    teste.addEdge(0,2);
+    Graph teste(3, true);
+	teste.addEdge(0,1);
+	teste.addEdge(0,2);
     teste.printList();
 }
