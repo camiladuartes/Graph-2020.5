@@ -61,11 +61,18 @@ class Graph{
            	if(!paramsAreValid){
             	throw std::invalid_argument("Indexes must be greater than zero and smaller than the amount of vertices.");
             }
-
             for(std::list<link>::iterator it=adjList[v1].begin(); it != adjList[v1].end(); ++it){
             	if(it->vertex == v2)
             		adjList[v1].erase(it);
             }
+			//if our graph isn't directed, then we also need to updated v2's list. 
+			//That is, remove the v1 value from it.
+			if(!this->isDirected){
+				for(std::list<link>::iterator it=adjList[v2].begin(); it != adjList[v2].end(); ++it){
+					if(it->vertex == v1)
+						adjList[v2].erase(it);
+				}
+			}
 
 		}
 
