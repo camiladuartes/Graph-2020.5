@@ -1,0 +1,3 @@
+/home/marcosdelgado/Documentos/grafos/Graph-2020.5/data-structures/pruffer_code/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/marcosdelgado/Documentos/grafos/Graph-2020.5/data-structures/pruffer_code/cmake-build-debug/CMakeFiles/pruffer_code.dir
+/home/marcosdelgado/Documentos/grafos/Graph-2020.5/data-structures/pruffer_code/cmake-build-debug/CMakeFiles/edit_cache.dir

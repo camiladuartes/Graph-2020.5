@@ -3,6 +3,16 @@
 #include <iostream>
 #include <exception>
 
+std::ostream& operator<<(std::ostream& os, std::vector<int> adjNodes){
+    os << "[ ";
+    for(int i=0;i<adjNodes.size();i++){
+        os << adjNodes[i] << ",";
+    }
+    os << "]";
+    return os;
+}
+
+
 class Graph{
     int V; //amount of vertices
     //booleans to detect some possible properties of the graph
@@ -18,7 +28,16 @@ class Graph{
         return !parametersSmallerThanZero && !parametersGreaterThanV;
     }
 
-    public: 
+    public:
+
+        int getAmountVert(){
+            return this->V;
+        }
+
+        std::vector<std::vector<int>> getAdjMatrix(){
+            return this->adjMatrix;
+        }
+
         Graph(int V, bool isDirected = false, bool isWeighted = false){
             //checking to see if the number of vertices is valid 
             if(V <= 0){
@@ -85,6 +104,9 @@ class Graph{
         }
 
 
+
+
+
         //removes an edge to the graph by receiving its two endpoints
         //if there isn't any edge connecting these two vertices, nothing happens 
         void removeEdge(int u, int v){
@@ -115,13 +137,15 @@ class Graph{
 
 };
 
-int main() {
-    Graph teste(3);
-    teste.addEdge(0,1);
-    teste.addEdge(0,2);
-    teste.printMatrix();
-    auto x = teste.getAdjacentNodes(0);
-    for(int i = 0; i < x.size(); i++){
-        std::cout << x[i] << " ";
-    }
-}
+
+
+//int main() {
+//    Graph teste(3);
+//    teste.addEdge(0,1);
+//    teste.addEdge(0,2);
+//    teste.printMatrix();
+//    auto x = teste.getAdjacentNodes(0);
+//    for(int i = 0; i < x.size(); i++){
+//        std::cout << x[i] << " ";
+//    }
+//}

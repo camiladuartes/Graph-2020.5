@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/marcosdelgado/Documentos/grafos/Graph-2020.5/data-structures/pruffer_code/adjacencyMatrix.h
+vector
+-
+string
+-
+iostream
+-
+exception
+-
+
+/home/marcosdelgado/Documentos/grafos/Graph-2020.5/data-structures/pruffer_code/pruffer.cpp
+iostream
+-
+adjacencyMatrix.h
+/home/marcosdelgado/Documentos/grafos/Graph-2020.5/data-structures/pruffer_code/adjacencyMatrix.h
+
