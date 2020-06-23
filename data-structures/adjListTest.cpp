@@ -35,7 +35,7 @@ class Graph{
 		Graph(int vertices, bool isDirected = false)
 		{
 			V = vertices;
-			std::vector<std::vector<link>> temp(this->V, std::vector<link>(0));
+			std::vector<std::vector<link>> temp(this->V);
 			adjList = temp;
 			this->isDirected = isDirected;
 		}
@@ -65,6 +65,9 @@ class Graph{
             	throw std::invalid_argument("Indexes must be greater than zero and smaller than the amount of vertices.");
             }
             link adj = link(v2, weight);
+			for(int i = 0; i < this->adjList[v1].size(); i++){
+				if(this->adjList[v1][i].vertex == v2) return;
+			}
             adjList[v1].push_back(adj);
 			//we can only add the same edge "both ways" if our graph isn't directed.
 			if(!this->isDirected){
@@ -115,8 +118,9 @@ class Graph{
 };
 
 int main() {
-    Graph teste(3, true);
+    Graph teste(3);
 	teste.addEdge(0,1);
 	teste.addEdge(0,2);
+	teste.addEdge(0,1);
     teste.printList();
 }
