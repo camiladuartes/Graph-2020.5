@@ -1,5 +1,6 @@
 #include <iostream>
 #include <list>
+#include <vector>
 #include <exception>
 
 class Graph{
@@ -19,7 +20,7 @@ class Graph{
 		//our amount of vertices.
 		int V;
 		//this is our adjList. Each element of the list is another list.
-		std::list<link> *adjList;
+		std::vector<std::vector<link>> adjList;
 
 		//function to check if the provided indexes of vertices are valid ones.
     	bool checkVerticesIndexes(int u, int v)
@@ -34,10 +35,28 @@ class Graph{
 		Graph(int vertices, bool isDirected = false)
 		{
 			V = vertices;
-			adjList = new std::list<link>[V];
+			std::vector<std::vector<link>> temp(this->V, std::vector<link>(0));
+			adjList = temp;
 			this->isDirected = isDirected;
 		}
 
+		bool areAdjacent(int u, int v){
+			for(int i = 0; i < this->adjList[u].size(); i++){
+				if(this->adjList[u][i].vertex == v){
+					return true;
+				}
+			}
+			if(this->isDirected){
+				return false;
+			}
+
+			for(int i = 0; i < this->adjList[v].size(); i++){
+				if(this->adjList[v][i].vertex == u){
+					return true;
+				}
+			}
+			return false;
+		}
 		void addEdge(int v1, int v2, int weight = 1)
 		{
 			//check to see if any of the vertices is bigger than the number of actual vertices.
@@ -61,14 +80,14 @@ class Graph{
            	if(!paramsAreValid){
             	throw std::invalid_argument("Indexes must be greater than zero and smaller than the amount of vertices.");
             }
-            for(std::list<link>::iterator it=adjList[v1].begin(); it != adjList[v1].end(); ++it){
+            for(std::vector<link>::iterator it=adjList[v1].begin(); it != adjList[v1].end(); ++it){
             	if(it->vertex == v2)
             		adjList[v1].erase(it);
             }
 			//if our graph isn't directed, then we also need to updated v2's list. 
 			//That is, remove the v1 value from it.
 			if(!this->isDirected){
-				for(std::list<link>::iterator it=adjList[v2].begin(); it != adjList[v2].end(); ++it){
+				for(std::vector<link>::iterator it=adjList[v2].begin(); it != adjList[v2].end(); ++it){
 					if(it->vertex == v1)
 						adjList[v2].erase(it);
 				}
