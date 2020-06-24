@@ -7,7 +7,7 @@ using namespace std;
  * a Graph.
  */
 class Graph{
-	// private:
+	private:
 	// A struct created to be able to insert a possible weight of an edge
 	//if we have 0 -> {1, 3}, then the edge that connects 0 to 1 has a weight of 3
 		struct link{
