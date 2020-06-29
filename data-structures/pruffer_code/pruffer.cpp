@@ -139,5 +139,8 @@ int main(){
     graph->printMatrix();
 
 
+    delete graph;
+    delete pruffer;
+
     return 0;
 }
